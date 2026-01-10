@@ -1,0 +1,30 @@
+{
+  "name": "identity-dna-engine",
+  "version": "1.0.0",
+  "description": "🧬 Master User Data & Trust Schema — Global Identity for Smarter.Poker Empire",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test tests/*.test.js",
+    "test:dna": "node --test tests/IdentityDNAEngine.test.js",
+    "test:client": "node --test tests/DNAClientEngine.test.js",
+    "migrate": "node schemas/supabase_migrations/run.js"
+  },
+  "keywords": [
+    "poker",
+    "identity",
+    "trust",
+    "xp",
+    "smarter-poker"
+  ],
+  "author": "Smarter.Poker",
+  "license": "PROPRIETARY",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.90.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

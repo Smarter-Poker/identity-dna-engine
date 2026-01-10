@@ -1,0 +1,122 @@
+{
+    "events": {
+        "DNA_SYNC": {
+            "description": "Triggered when a player's DNA profile is synchronized",
+            "payload": {
+                "userId": "string (UUID)",
+                "updates": {
+                    "skill_tier": "number (1-10)",
+                    "trust_score": "number (0-100)",
+                    "xp_total": "number",
+                    "badges": "array"
+                },
+                "syncTime": "number (ms)",
+                "lawCompliance": "boolean"
+            }
+        },
+        "PROFILE_UPDATE": {
+            "description": "Triggered when any profile field is updated",
+            "payload": {
+                "userId": "string (UUID)",
+                "field": "string",
+                "oldValue": "any",
+                "newValue": "any",
+                "sourceOrb": "string"
+            }
+        },
+        "TIER_CHANGED": {
+            "description": "Triggered when a player's skill tier changes",
+            "payload": {
+                "userId": "string (UUID)",
+                "oldTier": "number (1-10)",
+                "newTier": "number (1-10)",
+                "tierName": "string"
+            }
+        },
+        "TRUST_UPDATE": {
+            "description": "Triggered when trust score is updated",
+            "payload": {
+                "userId": "string (UUID)",
+                "oldScore": "number",
+                "newScore": "number",
+                "trustTier": "string"
+            }
+        },
+        "XP_AWARDED": {
+            "description": "Triggered when XP is awarded to a player",
+            "payload": {
+                "userId": "string (UUID)",
+                "source": "string",
+                "baseAmount": "number",
+                "multiplier": "number",
+                "finalAmount": "number"
+            }
+        },
+        "BADGE_EARNED": {
+            "description": "Triggered when a badge is earned",
+            "payload": {
+                "userId": "string (UUID)",
+                "badge": {
+                    "code": "string",
+                    "name": "string",
+                    "rarity": "string",
+                    "sourceOrb": "string"
+                }
+            }
+        },
+        "STREAK_UPDATE": {
+            "description": "Triggered when login streak changes",
+            "payload": {
+                "userId": "string (UUID)",
+                "currentStreak": "number",
+                "longestStreak": "number",
+                "multiplier": "number"
+            }
+        },
+        "PROFILE_DELETED": {
+            "description": "Triggered when a profile is deleted (GDPR)",
+            "payload": {
+                "userId": "string (UUID)",
+                "deletedAt": "string (ISO timestamp)",
+                "reason": "string"
+            }
+        }
+    },
+    "inbound": {
+        "PLAYER_ACTION": {
+            "description": "Received when a player performs an action in any Orb",
+            "payload": {
+                "userId": "string (UUID)",
+                "sourceOrb": "string",
+                "actionType": "string",
+                "metadata": "object"
+            }
+        },
+        "TRAINING_COMPLETED": {
+            "description": "Received from Orb 4 when training session completes",
+            "payload": {
+                "userId": "string (UUID)",
+                "accuracy": "number",
+                "evLoss": "number",
+                "gtoCompliance": "number"
+            }
+        },
+        "ARCADE_WIN": {
+            "description": "Received from Orb 7 when arcade game is won",
+            "payload": {
+                "userId": "string (UUID)",
+                "gameMode": "string",
+                "diamondsWon": "number",
+                "streak": "number"
+            }
+        },
+        "REVIEW_RECEIVED": {
+            "description": "Received from Orb 9 when user receives a review",
+            "payload": {
+                "userId": "string (UUID)",
+                "rating": "number (1-5)",
+                "reviewerId": "string (UUID)"
+            }
+        }
+    }
+}

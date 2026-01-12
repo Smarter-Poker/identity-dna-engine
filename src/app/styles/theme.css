@@ -1,0 +1,417 @@
+/**
+ * 🎮 GLOBAL THEME ENGINE — VIDEO-GAME VISUAL CONTRACT
+ * src/app/styles/theme.css
+ * 
+ * Deep-space hues, glassmorphism, neon-reactive variables
+ * Hardware-accelerated 3D perspective system
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   🌌 CSS CUSTOM PROPERTIES — DEEP SPACE PALETTE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────────────
+     🌑 DEEP SPACE CORE COLORS
+     ───────────────────────────────────────────────────────────────────────── */
+  --space-void: #030308;
+  --space-deep: #0a0a1a;
+  --space-nebula: #0d0d20;
+  --space-dark: #12122a;
+  --space-medium: #1a1a3a;
+  --space-light: #252550;
+  
+  /* ─────────────────────────────────────────────────────────────────────────
+     🔮 NEON REACTIVE COLORS
+     ───────────────────────────────────────────────────────────────────────── */
+  --neon-cyan: #00FFFF;
+  --neon-cyan-glow: rgba(0, 255, 255, 0.5);
+  --neon-cyan-dim: rgba(0, 255, 255, 0.15);
+  
+  --neon-magenta: #FF00FF;
+  --neon-magenta-glow: rgba(255, 0, 255, 0.5);
+  --neon-magenta-dim: rgba(255, 0, 255, 0.15);
+  
+  --neon-blue: #00BFFF;
+  --neon-blue-glow: rgba(0, 191, 255, 0.5);
+  --neon-blue-dim: rgba(0, 191, 255, 0.15);
+  
+  --neon-gold: #FFD700;
+  --neon-gold-glow: rgba(255, 215, 0, 0.5);
+  --neon-gold-dim: rgba(255, 215, 0, 0.15);
+  
+  --neon-green: #32CD32;
+  --neon-green-glow: rgba(50, 205, 50, 0.5);
+  --neon-green-dim: rgba(50, 205, 50, 0.15);
+  
+  --neon-red: #FF4444;
+  --neon-red-glow: rgba(255, 68, 68, 0.5);
+  --neon-red-dim: rgba(255, 68, 68, 0.15);
+  
+  --neon-orange: #FF6B35;
+  --neon-orange-glow: rgba(255, 107, 53, 0.5);
+  
+  --neon-purple: #9400D3;
+  --neon-purple-glow: rgba(148, 0, 211, 0.5);
+  
+  /* ─────────────────────────────────────────────────────────────────────────
+     🪟 GLASSMORPHISM SYSTEM
+     ───────────────────────────────────────────────────────────────────────── */
+  --glass-surface: rgba(255, 255, 255, 0.03);
+  --glass-surface-hover: rgba(255, 255, 255, 0.06);
+  --glass-surface-active: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-glow: rgba(0, 255, 255, 0.2);
+  --glass-blur: 20px;
+  --glass-blur-heavy: 40px;
+  
+  /* ─────────────────────────────────────────────────────────────────────────
+     📐 3D PERSPECTIVE SYSTEM
+     ───────────────────────────────────────────────────────────────────────── */
+  --perspective-depth: 1200px;
+  --perspective-origin: 50% 50%;
+  --parallax-factor: 0.05;
+  --z-layer-base: 0;
+  --z-layer-elevated: 10;
+  --z-layer-floating: 50;
+  --z-layer-overlay: 100;
+  --z-layer-modal: 500;
+  --z-layer-toast: 1000;
+  
+  /* ─────────────────────────────────────────────────────────────────────────
+     ⚡ ANTI-GRAVITY MOTION CURVES
+     ───────────────────────────────────────────────────────────────────────── */
+  --motion-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --motion-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  --motion-decel: cubic-bezier(0, 0, 0.2, 1);
+  --motion-accel: cubic-bezier(0.4, 0, 1, 1);
+  
+  /* Motion Durations */
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-smooth: 400ms;
+  --duration-slow: 600ms;
+  --duration-dramatic: 1000ms;
+  
+  /* ─────────────────────────────────────────────────────────────────────────
+     🎨 TYPOGRAPHY SYSTEM
+     ───────────────────────────────────────────────────────────────────────── */
+  --font-display: 'Exo 2', 'Orbitron', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+  
+  /* ─────────────────────────────────────────────────────────────────────────
+     📏 SPACING & LAYOUT
+     ───────────────────────────────────────────────────────────────────────── */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Navigation Rail */
+  --nav-rail-width: 72px;
+  --nav-rail-expanded: 240px;
+  
+  /* Content Viewport */
+  --content-max-width: 1400px;
+  --header-height: 64px;
+  
+  /* ─────────────────────────────────────────────────────────────────────────
+     ✨ REACTIVE FEEDBACK STATES
+     ───────────────────────────────────────────────────────────────────────── */
+  --hover-scale: 1.02;
+  --active-scale: 0.98;
+  --spring-scale: 1.05;
+  --glow-spread: 20px;
+  --glow-spread-lg: 40px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   🌍 GLOBAL RESET & BASE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--space-void);
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Hardware-accelerated scrolling */
+html, body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   🔮 3D SPATIAL ROOT CONTAINER
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#spatial-root {
+  position: relative;
+  min-height: 100vh;
+  perspective: var(--perspective-depth);
+  perspective-origin: var(--perspective-origin);
+  transform-style: preserve-3d;
+  overflow: hidden;
+  
+  /* Deep space background */
+  background: 
+    radial-gradient(ellipse at 20% 80%, var(--neon-purple-glow) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, var(--neon-blue-dim) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, var(--space-nebula) 0%, var(--space-void) 100%);
+}
+
+/* Starfield effect layer */
+#spatial-root::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.25), transparent),
+    radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.2), transparent);
+  background-size: 200px 200px;
+  animation: starfield-drift 120s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes starfield-drift {
+  from { transform: translateY(0) translateX(0); }
+  to { transform: translateY(-200px) translateX(-100px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   🪟 GLASSMORPHISM UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.glass-panel {
+  background: var(--glass-surface);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.glass-panel-heavy {
+  background: var(--glass-surface);
+  backdrop-filter: blur(var(--glass-blur-heavy));
+  -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ⚡ ANTI-GRAVITY MOTION UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Base motion - nothing moves linearly */
+.motion-spring {
+  transition: all var(--duration-normal) var(--motion-spring);
+}
+
+.motion-bounce {
+  transition: all var(--duration-normal) var(--motion-bounce);
+}
+
+.motion-elastic {
+  transition: all var(--duration-smooth) var(--motion-elastic);
+}
+
+.motion-smooth {
+  transition: all var(--duration-normal) var(--motion-smooth);
+}
+
+/* 3D Transform utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Floating elements */
+.float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-10px) translateZ(5px); }
+}
+
+.float-pulse {
+  animation: float-pulse 4s ease-in-out infinite;
+}
+
+@keyframes float-pulse {
+  0%, 100% { transform: scale(1) translateZ(0); }
+  50% { transform: scale(1.02) translateZ(10px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   🎯 INTERACTIVE FEEDBACK — HAPTIC-STYLE VISUALS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.interactive {
+  cursor: pointer;
+  transition: 
+    transform var(--duration-fast) var(--motion-spring),
+    box-shadow var(--duration-fast) var(--motion-smooth),
+    border-color var(--duration-fast) var(--motion-smooth);
+  will-change: transform, box-shadow;
+}
+
+.interactive:hover {
+  transform: scale(var(--hover-scale)) translateZ(5px);
+}
+
+.interactive:active {
+  transform: scale(var(--active-scale)) translateZ(0);
+}
+
+/* Glow shift on hover */
+.glow-shift {
+  transition: 
+    box-shadow var(--duration-normal) var(--motion-smooth),
+    border-color var(--duration-normal) var(--motion-smooth);
+}
+
+.glow-shift:hover {
+  box-shadow: 
+    0 0 var(--glow-spread) var(--neon-cyan-glow),
+    0 0 var(--glow-spread-lg) var(--neon-cyan-dim);
+  border-color: var(--glass-border-glow);
+}
+
+/* Scale spring effect */
+.scale-spring {
+  transition: transform var(--duration-fast) var(--motion-spring);
+}
+
+.scale-spring:hover {
+  transform: scale(var(--spring-scale));
+}
+
+.scale-spring:active {
+  transform: scale(var(--active-scale));
+}
+
+/* Neon pulse on focus */
+.neon-focus:focus {
+  outline: none;
+  box-shadow: 
+    0 0 0 2px var(--space-void),
+    0 0 0 4px var(--neon-cyan),
+    0 0 20px var(--neon-cyan-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   🎨 NEON TEXT & ELEMENT UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.text-neon-cyan {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+.text-neon-gold {
+  color: var(--neon-gold);
+  text-shadow: 0 0 10px var(--neon-gold-glow);
+}
+
+.text-neon-magenta {
+  color: var(--neon-magenta);
+  text-shadow: 0 0 10px var(--neon-magenta-glow);
+}
+
+.text-gradient-premium {
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   📱 RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  :root {
+    --nav-rail-width: 0px;
+    --perspective-depth: 800px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

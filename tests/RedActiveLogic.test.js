@@ -263,11 +263,13 @@ describe('🔥 TASK 06: STREAK_INTEGRITY_ORACLE (fn_update_streak_count)', () =>
     describe('Streak expiration check', () => {
         it('✅ should detect ACTIVE streak', () => {
             const oracle = new StreakIntegrityOracle(null);
-            const today = new Date().toISOString().split('T')[0];
+            // Use full timestamp for today (just a few minutes ago)
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - 5); // 5 minutes ago
 
             const streak = new StreakData({
                 current_streak: 5,
-                last_active_date: today
+                last_active_date: now.toISOString()
             });
 
             const result = oracle.checkStreakExpiration(streak);
@@ -277,12 +279,14 @@ describe('🔥 TASK 06: STREAK_INTEGRITY_ORACLE (fn_update_streak_count)', () =>
 
         it('⚠️ should detect AT_RISK streak (1 day inactive)', () => {
             const oracle = new StreakIntegrityOracle(null);
+            // Yesterday at midnight
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
+            yesterday.setHours(12, 0, 0, 0); // Yesterday at noon
 
             const streak = new StreakData({
                 current_streak: 5,
-                last_active_date: yesterday.toISOString().split('T')[0]
+                last_active_date: yesterday.toISOString()
             });
 
             const result = oracle.checkStreakExpiration(streak);
@@ -294,10 +298,11 @@ describe('🔥 TASK 06: STREAK_INTEGRITY_ORACLE (fn_update_streak_count)', () =>
             const oracle = new StreakIntegrityOracle(null);
             const threeDaysAgo = new Date();
             threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+            threeDaysAgo.setHours(12, 0, 0, 0); // 3 days ago at noon
 
             const streak = new StreakData({
                 current_streak: 5,
-                last_active_date: threeDaysAgo.toISOString().split('T')[0]
+                last_active_date: threeDaysAgo.toISOString()
             });
 
             const result = oracle.checkStreakExpiration(streak);

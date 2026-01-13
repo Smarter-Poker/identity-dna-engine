@@ -35,3 +35,4 @@ coverage/
 
 # Keep example env
 !.env.example
+.vercel

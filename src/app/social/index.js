@@ -23,6 +23,14 @@ export { HeatMapBorder, GTOMasterGlow } from './components/HeatMapBorder';
 // ═══════════════════════════════════════════════════════════════════════════
 
 export { SocialService, createSocialService } from './SocialService';
+export { MediaUploadService, createMediaUploadService, validateFile } from './MediaUploadService';
+export { MessagingService, createMessagingService } from './MessagingService';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ✍️ POST CREATION (Enhanced with Media)
+// ═══════════════════════════════════════════════════════════════════════════
+
+export { EnhancedPostCreator } from './components/EnhancedPostCreator';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // 📊 TYPES & UTILITIES

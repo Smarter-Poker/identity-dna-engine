@@ -109,6 +109,14 @@ export {
     default as FacebookProfileView
 } from '../views/FacebookProfileView';
 
+// ═══════════════════════════════════════════════════════════════════════════
+// ✍️ POST CREATION
+// ═══════════════════════════════════════════════════════════════════════════
+export {
+    EnhancedPostCreator,
+    default as EnhancedPostCreatorDefault
+} from './EnhancedPostCreator';
+
 export const POKER_SOCIAL_COMPONENTS = {
     // Heat Effects
     HeatMapBorder: 'HeatMapBorder',

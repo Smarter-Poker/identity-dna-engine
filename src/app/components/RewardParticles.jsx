@@ -1,8 +1,8 @@
 /**
- * ✨ XP & DIAMOND REWARD PARTICLES
+ * ✨ DIAMOND REWARD PARTICLES
  * src/app/components/RewardParticles.jsx
- * 
- * Floating "+XP" and "+Diamond" particle animations for social actions.
+ *
+ * Floating "+Diamond" particle animations for social actions.
  * Anti-Gravity UI feedback system.
  */
 
@@ -41,11 +41,11 @@ const RewardParticle = ({ id, type, value, x, y, onComplete }) => {
     if (!isVisible) return null;
 
     const config = {
-        xp: {
-            icon: '⚡',
+        xp: { // legacy type — now renders as diamonds
+            icon: '💎',
             color: '#00FFFF',
             prefix: '+',
-            suffix: ' XP',
+            suffix: ' 💎',
             glow: 'rgba(0, 255, 255, 0.5)'
         },
         diamond: {
@@ -225,7 +225,7 @@ export const RewardProvider = ({ children }) => {
     const [bursts, setBursts] = useState([]);
     const [idCounter, setIdCounter] = useState(0);
 
-    // Spawn XP particle
+    // Spawn diamond particle (legacy name: spawnXP)
     const spawnXP = useCallback((value, x, y) => {
         const id = `xp-${idCounter}`;
         setIdCounter(prev => prev + 1);

@@ -101,7 +101,7 @@ export class ProfileManager {
     }
 
     /**
-     * Get leaderboard (top players by XP)
+     * Get leaderboard (top players by diamonds)
      */
     async getLeaderboard(limit = 100) {
         const { data, error } = await this.supabase.client
@@ -156,12 +156,12 @@ export class ProfileManager {
     }
 
     /**
-     * Increment XP (immutable — never decreases)
-     * LAW 2: XP changes are always logged
+     * Increment diamonds (immutable — never decreases)
+     * LAW 2: Diamond changes are always logged
      */
     async incrementXP(userId, xpAmount, sourceOrb = 'XP_ENGINE') {
         if (xpAmount < 0) {
-            throw new Error('XP cannot decrease — LAW 2: Immutable History');
+            throw new Error('Diamonds cannot decrease — LAW 2: Immutable History');
         }
 
         const currentProfile = await this.getById(userId);
@@ -183,7 +183,7 @@ export class ProfileManager {
 
         if (error) throw error;
 
-        // Log XP change (LAW 2)
+        // Log diamond change (LAW 2)
         await this.logHistory(userId, 'xp_total', currentProfile.xp_total, newXP, sourceOrb);
 
         return data;

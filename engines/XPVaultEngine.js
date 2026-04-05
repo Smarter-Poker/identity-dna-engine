@@ -1,11 +1,11 @@
 /**
- * 🧬 IDENTITY_DNA_ENGINE — XP Vault Engine
+ * 🧬 IDENTITY_DNA_ENGINE — Diamond Vault Engine
  * 
  * @project IDENTITY_DNA_ENGINE
- * @task XP_PERMANENCE_LOGIC
+ * @task DIAMOND_PERMANENCE_LOGIC
  * 
  * Manages the xp_vault table with permanence enforcement.
- * Constraint: XP can only be added, never subtracted.
+ * Constraint: Diamonds can only be added, never subtracted.
  * Works in conjunction with Postgres trigger 'check_xp_gain'.
  */
 
@@ -24,9 +24,9 @@ const XP_VAULT_CONFIG = {
 export class XPPermanenceViolation extends Error {
     constructor(userId, attemptedDecrease, currentTotal) {
         super(
-            `🚫 LAW 2 VIOLATION: XP Permanence Breach! ` +
-            `Cannot decrease XP by ${attemptedDecrease} for user ${userId}. ` +
-            `Current total: ${currentTotal}. XP is immutable.`
+            `🚫 LAW 2 VIOLATION: Diamond Permanence Breach! ` +
+            `Cannot decrease diamonds by ${attemptedDecrease} for user ${userId}. ` +
+            `Current total: ${currentTotal}. Diamonds are immutable.`
         );
         this.name = 'XPPermanenceViolation';
         this.userId = userId;
@@ -73,11 +73,11 @@ export class XPVaultEngine {
 
         // Validate amount is within bounds
         if (amount < XP_VAULT_CONFIG.MIN_DEPOSIT) {
-            throw new Error(`XP deposit must be at least ${XP_VAULT_CONFIG.MIN_DEPOSIT}`);
+            throw new Error(`Diamond deposit must be at least ${XP_VAULT_CONFIG.MIN_DEPOSIT}`);
         }
 
         if (amount > XP_VAULT_CONFIG.MAX_DEPOSIT) {
-            throw new Error(`XP deposit cannot exceed ${XP_VAULT_CONFIG.MAX_DEPOSIT}`);
+            throw new Error(`Diamond deposit cannot exceed ${XP_VAULT_CONFIG.MAX_DEPOSIT}`);
         }
 
         // Validate source
@@ -109,7 +109,7 @@ export class XPVaultEngine {
                 this.stats.depositsProcessed++;
                 this.stats.totalXPDeposited += amount;
 
-                console.log(`💰 XP Deposited: +${amount} to ${userId} from ${source}`);
+                console.log(`💰 Diamond Deposited: +${amount} to ${userId} from ${source}`);
 
                 return {
                     success: true,
@@ -128,7 +128,7 @@ export class XPVaultEngine {
             };
 
         } catch (error) {
-            console.error(`❌ XP Deposit failed for ${userId}:`, error.message);
+            console.error(`❌ Diamond Deposit failed for ${userId}:`, error.message);
             throw error;
         }
     }
@@ -138,7 +138,7 @@ export class XPVaultEngine {
     // ═══════════════════════════════════════════════════════════════════
 
     /**
-     * Get user's current XP vault balance
+     * Get user's current Diamond vault balance
      */
     async getBalance(userId) {
         const { data, error } = await this.supabase.client
@@ -175,7 +175,7 @@ export class XPVaultEngine {
     }
 
     /**
-     * Get XP audit trail for a user
+     * Get Diamond audit trail for a user
      */
     async getAuditTrail(userId, limit = 50) {
         const { data, error } = await this.supabase.client
@@ -190,7 +190,7 @@ export class XPVaultEngine {
     }
 
     /**
-     * Get global XP leaderboard
+     * Get global diamond leaderboard
      */
     async getLeaderboard(limit = 100) {
         const { data, error } = await this.supabase.client
@@ -207,13 +207,13 @@ export class XPVaultEngine {
     // ═══════════════════════════════════════════════════════════════════
 
     /**
-     * Verify XP permanence is enforced.
+     * Verify diamond permanence is enforced.
      * Attempts a decrease and confirms it's blocked.
      * (Used for testing/validation only)
      */
     async verifyPermanenceEnforced(testUserId) {
         try {
-            // Attempt to decrease XP (should fail)
+            // Attempt to decrease diamonds (should fail)
             const { error } = await this.supabase.client
                 .from('xp_vault')
                 .update({ xp_total: 0 })
@@ -222,7 +222,7 @@ export class XPVaultEngine {
             if (error && error.message.includes('LAW 2 VIOLATION')) {
                 return {
                     enforced: true,
-                    message: 'XP Permanence is correctly enforced',
+                    message: 'Diamond Permanence is correctly enforced',
                     triggerWorking: true
                 };
             }
@@ -230,7 +230,7 @@ export class XPVaultEngine {
             // If no error, permanence might not be enforced
             return {
                 enforced: false,
-                message: 'WARNING: XP decrease was not blocked!',
+                message: 'WARNING: Diamond decrease was not blocked!',
                 triggerWorking: false
             };
 
@@ -238,7 +238,7 @@ export class XPVaultEngine {
             if (error.message.includes('LAW 2 VIOLATION')) {
                 return {
                     enforced: true,
-                    message: 'XP Permanence is correctly enforced',
+                    message: 'Diamond Permanence is correctly enforced',
                     triggerWorking: true
                 };
             }
@@ -251,7 +251,7 @@ export class XPVaultEngine {
     // ═══════════════════════════════════════════════════════════════════
 
     /**
-     * Batch deposit XP to multiple users
+     * Batch deposit diamonds to multiple users
      */
     async batchDeposit(deposits) {
         const results = [];

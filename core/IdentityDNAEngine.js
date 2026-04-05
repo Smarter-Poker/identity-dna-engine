@@ -142,7 +142,7 @@ export class IdentityDNAEngine {
             // 6. Aggregate badges from all Orbs
             const badges = await this.badgeAggregator.aggregateAll(userId);
 
-            // 7. Sync XP from XP-Engine (Orb 3)
+            // 7. Sync diamonds from Diamond Engine (Orb 3)
             const xpTotal = await this.xpLedgerSync.getLatestXP(userId);
 
             // 8. Update unified profile (LAW 1: Single Source)

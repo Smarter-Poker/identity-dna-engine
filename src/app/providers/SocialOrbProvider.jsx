@@ -2,7 +2,7 @@
  * 🧬 SOCIAL ORB SESSION PROVIDER
  * src/app/providers/SocialOrbProvider.jsx
  * 
- * Global state contract for Identity DNA, XP, Diamonds, and Social Access.
+ * Global state contract for Identity DNA, Diamonds, and Social Access.
  * Broadcasts capability flags for feature unlocking across the tree.
  */
 

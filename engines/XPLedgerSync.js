@@ -1,8 +1,8 @@
 /**
- * 🧬 IDENTITY_DNA_ENGINE — XP Ledger Sync
+ * 🧬 IDENTITY_DNA_ENGINE — Diamond Ledger Sync
  * 
- * Synchronizes XP from the XP-Engine (Orb 3) to unified profiles.
- * Enforces immutable XP progression (LAW 2: XP never decreases).
+ * Synchronizes diamonds from the Diamond Engine (Orb 3) to unified profiles.
+ * Enforces immutable diamond progression (LAW 2: Diamonds never decrease).
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -11,7 +11,7 @@
 const XP_CONFIG = {
     MAX_STREAK_MULTIPLIER: 1.5,    // Maximum streak bonus
     STREAK_INCREMENT: 0.1,          // +10% per consecutive day
-    DAILY_CAP: 10000,               // Maximum XP earnable per day
+    DAILY_CAP: 10000,               // Maximum diamonds earnable per day
     SYNC_BATCH_SIZE: 100            // Records per sync batch
 };
 
@@ -55,7 +55,7 @@ export class XPLedgerSync {
     // ═══════════════════════════════════════════════════════════════════
 
     /**
-     * Get current total XP for a user
+     * Get current total diamonds for a user
      * Pulls from XP ledger and calculates total
      */
     async getLatestXP(userId) {
@@ -71,7 +71,7 @@ export class XPLedgerSync {
     }
 
     /**
-     * Get XP breakdown by source
+     * Get diamond breakdown by source
      */
     async getXPBreakdown(userId) {
         const { data, error } = await this.supabase.client
@@ -99,8 +99,8 @@ export class XPLedgerSync {
     // ═══════════════════════════════════════════════════════════════════
 
     /**
-     * Record XP earned to the ledger
-     * LAW 2: XP is appended, never modified
+     * Record diamonds earned to the ledger
+     * LAW 2: Diamonds are appended, never modified
      */
     async recordXP(userId, source, baseAmount, metadata = {}) {
         // Validate source

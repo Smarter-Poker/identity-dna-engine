@@ -101,7 +101,7 @@ export const LeaderboardView = ({
                         <h3 className="card-title">💡 Pro Tips</h3>
                         <ul className="tips-list">
                             <li>Post daily to build your streak multiplier</li>
-                            <li>Engage with others to earn bonus XP</li>
+                            <li>Engage with others to earn bonus 💎</li>
                             <li>Hit 20 reactions to earn Diamonds</li>
                             <li>Share training scores for extra engagement</li>
                         </ul>

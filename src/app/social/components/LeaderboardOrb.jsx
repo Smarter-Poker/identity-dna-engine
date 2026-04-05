@@ -2,7 +2,7 @@
  * 🏆 LEADERBOARD ORB COMPONENT
  * src/app/social/components/LeaderboardOrb.jsx
  * 
- * 3D-cylinder layout showing top influencers by XP earned.
+ * 3D-cylinder layout showing top influencers by diamonds earned.
  * Spatial competition visualization.
  */
 
@@ -371,7 +371,7 @@ export const LeaderboardOrb = ({
             {currentUserEntry && (
                 <footer className="current-user-footer">
                     <span>Your Rank: #{currentUserEntry.rank}</span>
-                    <span>{currentUserEntry.xp_earned.toLocaleString()} XP earned</span>
+                    <span>{(currentUserEntry.diamonds_earned || currentUserEntry.xp_earned || 0).toLocaleString()} 💎 earned</span>
                 </footer>
             )}
 

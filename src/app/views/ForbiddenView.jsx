@@ -91,7 +91,7 @@ export const ForbiddenView = ({
 
                 {/* Helpful tip */}
                 <div className="forbidden-tip">
-                    💡 Complete training drills and earn XP to level up!
+                    💡 Complete training drills and earn 💎 to level up!
                 </div>
             </div>
 

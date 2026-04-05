@@ -3,7 +3,7 @@
  * src/app/views/DNAProfileView.jsx
  * 
  * Complete Identity DNA profile visualization with holographic radar chart,
- * XP progression, tier badges, and streak tracking.
+ * Diamond progression, tier badges, and streak tracking.
  */
 
 import React, { useMemo } from 'react';
@@ -273,9 +273,9 @@ export const DNAProfileView = () => {
 
     const tier = TIER_CONFIG[identity?.tier] || TIER_CONFIG.BRONZE;
     const level = identity?.level || 1;
-    const xp = identity?.xp || 0;
-    const xpForNextLevel = (level * 1000); // Simple formula
-    const xpProgress = (xp / xpForNextLevel) * 100;
+    const diamonds = identity?.xp || identity?.diamonds || 0; // legacy field
+    const diamondsForNextLevel = (level * 500); // Diamond-based progression
+    const diamondProgress = (diamonds / diamondsForNextLevel) * 100;
 
     // Calculate composite DNA score
     const compositeScore = useMemo(() => {
@@ -312,11 +312,11 @@ export const DNAProfileView = () => {
 
                     <div className="xp-progress">
                         <div className="xp-bar">
-                            <div className="xp-fill" style={{ width: `${xpProgress}%` }} />
+                            <div className="xp-fill" style={{ width: `${diamondProgress}%` }} />
                         </div>
                         <div className="xp-text">
-                            <span>{xp.toLocaleString()} XP</span>
-                            <span>/ {xpForNextLevel.toLocaleString()}</span>
+                            <span>{diamonds.toLocaleString()} 💎</span>
+                            <span>/ {diamondsForNextLevel.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>

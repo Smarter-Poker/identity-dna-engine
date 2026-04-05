@@ -1,23 +1,27 @@
 /**
- * 🛡️ XP PERMANENCE SERVICE
+ * 🛡️ DIAMOND PERMANENCE SERVICE
  * src/services/xp/XPPermanenceService.js
- * 
- * Service to handle all XP increments with atomic verification.
- * Enforces the Hard Law: XP CAN NEVER DECREASE
+ *
+ * Service to handle all diamond increments with atomic verification.
+ * Enforces the Hard Law: DIAMONDS CAN NEVER DECREASE
+ * (File path kept as xp/ for backwards compatibility)
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
 // 🔒 HARD LAW CONSTANTS
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const XP_HARD_LAWS = {
+export const DIAMOND_HARD_LAWS = {
     NO_DECREASE: true,
     MASTERY_GATE: 0.85,
     MIN_INCREMENT: 1,
     MAX_SINGLE_INCREMENT: 100000
 };
 
-export const XP_SOURCES = {
+/** @deprecated Use DIAMOND_HARD_LAWS */
+export const XP_HARD_LAWS = DIAMOND_HARD_LAWS;
+
+export const DIAMOND_SOURCES = {
     TRAINING: 'TRAINING',
     DRILL: 'DRILL',
     QUIZ: 'QUIZ',
@@ -30,28 +34,31 @@ export const XP_SOURCES = {
     ADMIN: 'ADMIN'
 };
 
+/** @deprecated Use DIAMOND_SOURCES */
+export const XP_SOURCES = DIAMOND_SOURCES;
+
 // ═══════════════════════════════════════════════════════════════════════════
-// 🛡️ XP PERMANENCE SERVICE
+// 🛡️ DIAMOND PERMANENCE SERVICE
 // ═══════════════════════════════════════════════════════════════════════════
 
-export class XPPermanenceService {
+export class DiamondPermanenceService {
     constructor(supabaseClient) {
         this.supabase = supabaseClient;
-        this.hardLaws = XP_HARD_LAWS;
+        this.hardLaws = DIAMOND_HARD_LAWS;
     }
 
     // ═══════════════════════════════════════════════════════════════════════
-    // 📈 INCREMENT XP (Atomic, Safe)
+    // 📈 INCREMENT DIAMONDS (Atomic, Safe)
     // ═══════════════════════════════════════════════════════════════════════
 
     /**
-     * Safely increment XP with atomic verification
+     * Safely increment diamonds with atomic verification
      * @param {string} userId - User UUID
-     * @param {number} amount - XP amount to add (must be positive)
-     * @param {string} source - Source of XP
+     * @param {number} amount - Diamond amount to add (must be positive)
+     * @param {string} source - Source of diamonds
      * @param {Object} options - Additional options
      */
-    async incrementXP(userId, amount, source = XP_SOURCES.TRAINING, options = {}) {
+    async incrementDiamonds(userId, amount, source = DIAMOND_SOURCES.TRAINING, options = {}) {
         // Validate amount
         const validation = this.validateIncrement(amount);
         if (!validation.valid) {
@@ -71,7 +78,7 @@ export class XPPermanenceService {
             }
         }
 
-        // Call database function for atomic operation
+        // Call database function for atomic operation (legacy DB function name)
         const { data, error } = await this.supabase.client.rpc('fn_increment_xp', {
             p_user_id: userId,
             p_amount: amount,
@@ -81,11 +88,16 @@ export class XPPermanenceService {
         });
 
         if (error) {
-            console.error('XP increment error:', error);
+            console.error('Diamond increment error:', error);
             return { success: false, error: error.message };
         }
 
         return data;
+    }
+
+    /** @deprecated Use incrementDiamonds */
+    async incrementXP(userId, amount, source, options) {
+        return this.incrementDiamonds(userId, amount, source, options);
     }
 
     // ═══════════════════════════════════════════════════════════════════════
@@ -93,7 +105,7 @@ export class XPPermanenceService {
     // ═══════════════════════════════════════════════════════════════════════
 
     /**
-     * Validate XP increment amount
+     * Validate diamond increment amount
      */
     validateIncrement(amount) {
         if (typeof amount !== 'number' || isNaN(amount)) {
@@ -101,7 +113,7 @@ export class XPPermanenceService {
         }
 
         if (amount <= 0) {
-            return { valid: false, error: 'XP amount must be positive (Hard Law: No XP Loss)' };
+            return { valid: false, error: 'Diamond amount must be positive (Hard Law: No Diamond Loss)' };
         }
 
         if (amount < this.hardLaws.MIN_INCREMENT) {
@@ -113,7 +125,7 @@ export class XPPermanenceService {
         }
 
         if (!Number.isInteger(amount)) {
-            return { valid: false, error: 'XP must be a whole number' };
+            return { valid: false, error: 'Diamonds must be a whole number' };
         }
 
         return { valid: true };
@@ -133,32 +145,37 @@ export class XPPermanenceService {
     }
 
     /**
-     * Validate XP change (blocks any decrease)
+     * Validate diamond change (blocks any decrease)
      */
-    validateXPChange(currentXP, newXP) {
-        if (newXP < currentXP) {
+    validateDiamondChange(currentDiamonds, newDiamonds) {
+        if (newDiamonds < currentDiamonds) {
             return {
                 valid: false,
                 blocked: true,
                 error: 'HARD_LAW_VIOLATION',
-                message: `Cannot decrease XP from ${currentXP} to ${newXP}`,
-                delta: newXP - currentXP
+                message: `Cannot decrease diamonds from ${currentDiamonds} to ${newDiamonds}`,
+                delta: newDiamonds - currentDiamonds
             };
         }
         return { valid: true, blocked: false };
     }
 
+    /** @deprecated Use validateDiamondChange */
+    validateXPChange(currentXP, newXP) {
+        return this.validateDiamondChange(currentXP, newXP);
+    }
+
     // ═══════════════════════════════════════════════════════════════════════
-    // 📊 XP QUERY METHODS
+    // 📊 DIAMOND QUERY METHODS
     // ═══════════════════════════════════════════════════════════════════════
 
     /**
-     * Get current XP total
+     * Get current diamond total
      */
-    async getXP(userId) {
+    async getDiamonds(userId) {
         const { data, error } = await this.supabase.client
             .from('user_dna_profiles')
-            .select('xp_total, xp_lifetime, current_level, tier_id')
+            .select('xp_total, xp_lifetime, current_level, tier_id') // legacy DB columns
             .eq('user_id', userId)
             .single();
 
@@ -166,12 +183,17 @@ export class XPPermanenceService {
         return data;
     }
 
+    /** @deprecated Use getDiamonds */
+    async getXP(userId) {
+        return this.getDiamonds(userId);
+    }
+
     /**
-     * Get XP history/log
+     * Get diamond history/log
      */
-    async getXPHistory(userId, limit = 50) {
+    async getDiamondHistory(userId, limit = 50) {
         const { data, error } = await this.supabase.client
-            .from('xp_security_log')
+            .from('xp_security_log') // legacy DB table name
             .select('*')
             .eq('user_id', userId)
             .order('created_at', { ascending: false })
@@ -180,12 +202,17 @@ export class XPPermanenceService {
         return error ? [] : data;
     }
 
+    /** @deprecated Use getDiamondHistory */
+    async getXPHistory(userId, limit) {
+        return this.getDiamondHistory(userId, limit);
+    }
+
     /**
      * Get security violations
      */
     async getSecurityViolations(userId = null, limit = 100) {
         let query = this.supabase.client
-            .from('xp_security_log')
+            .from('xp_security_log') // legacy DB table name
             .select('*')
             .eq('blocked', true)
             .order('created_at', { ascending: false })
@@ -204,41 +231,59 @@ export class XPPermanenceService {
     // ═══════════════════════════════════════════════════════════════════════
 
     /**
-     * Award training XP (requires 85% accuracy)
+     * Award training diamonds (requires 85% accuracy)
      */
-    async awardTrainingXP(userId, baseAmount, accuracy) {
-        return this.incrementXP(userId, baseAmount, XP_SOURCES.TRAINING, {
+    async awardTrainingDiamonds(userId, baseAmount, accuracy) {
+        return this.incrementDiamonds(userId, baseAmount, DIAMOND_SOURCES.TRAINING, {
             requireMastery: true,
             accuracy
         });
     }
 
+    /** @deprecated Use awardTrainingDiamonds */
+    async awardTrainingXP(userId, baseAmount, accuracy) {
+        return this.awardTrainingDiamonds(userId, baseAmount, accuracy);
+    }
+
     /**
-     * Award bonus XP (no mastery requirement)
+     * Award bonus diamonds (no mastery requirement)
      */
-    async awardBonusXP(userId, amount, source = XP_SOURCES.ACHIEVEMENT) {
-        return this.incrementXP(userId, amount, source, {
+    async awardBonusDiamonds(userId, amount, source = DIAMOND_SOURCES.ACHIEVEMENT) {
+        return this.incrementDiamonds(userId, amount, source, {
             requireMastery: false
         });
+    }
+
+    /** @deprecated Use awardBonusDiamonds */
+    async awardBonusXP(userId, amount, source) {
+        return this.awardBonusDiamonds(userId, amount, source);
     }
 
     /**
      * Award streak bonus
      */
     async awardStreakBonus(userId, streakDays) {
-        const bonusXP = Math.min(1000, streakDays * 50);
-        return this.incrementXP(userId, bonusXP, XP_SOURCES.STREAK_BONUS, {
+        const bonusDiamonds = Math.min(100, streakDays * 5); // was 1000/50 XP, now 100/5 diamonds
+        return this.incrementDiamonds(userId, bonusDiamonds, DIAMOND_SOURCES.STREAK_BONUS, {
             requireMastery: false
         });
     }
 }
 
+// Legacy alias
+export const XPPermanenceService = DiamondPermanenceService;
+
 // ═══════════════════════════════════════════════════════════════════════════
 // 📦 FACTORY FUNCTION
 // ═══════════════════════════════════════════════════════════════════════════
 
-export function createXPService(supabaseClient) {
-    return new XPPermanenceService(supabaseClient);
+export function createDiamondService(supabaseClient) {
+    return new DiamondPermanenceService(supabaseClient);
 }
 
-export default XPPermanenceService;
+/** @deprecated Use createDiamondService */
+export function createXPService(supabaseClient) {
+    return createDiamondService(supabaseClient);
+}
+
+export default DiamondPermanenceService;

@@ -23,7 +23,7 @@ import { MasterBusConnector } from './integrations/MasterBusConnector.js';
 // ═══════════════════════════════════════════════════════════════════════════
 export const IDENTITY_DNA_LAWS = {
     LAW_1_SINGLE_SOURCE: 'One profile per user. All Orbs read from Identity DNA.',
-    LAW_2_IMMUTABLE_HISTORY: 'XP and Trust Score changes are logged, never overwritten.',
+    LAW_2_IMMUTABLE_HISTORY: 'Diamond and Trust Score changes are logged, never overwritten.',
     LAW_3_REAL_TIME_SYNC: 'Profile updates within 5 seconds of any Orb event.',
     LAW_4_SOVEREIGN_PRIVACY: 'User controls data export and deletion (GDPR/CCPA compliant).',
     LAW_5_CROSS_ORB_ISOLATION: 'Orbs cannot directly modify each other\'s data — only via DNA.'
@@ -37,7 +37,7 @@ export const DNA_MASTER_SCHEMA = {
     profile: {
         id: 'uuid (pk)',           // Unique player identifier from Supabase Auth
         username: 'text',          // Display name
-        xp_total: 'bigint',        // Cumulative lifetime XP from XP-Engine
+        xp_total: 'bigint',        // Cumulative lifetime diamonds (legacy column)
         trust_score: 'float',      // 0.0 - 100.0 composite reputation
         skill_tier: 'int',         // 1-10 tier based on training performance
         badges: 'jsonb',           // Earned achievements across platform
